@@ -34,9 +34,11 @@ var timerText = $("#timer");
 var buttons = $("#button-container");
 var answerResult = $("#answer-result");
 var highScoreLink = $("#high-score-link");
+var highScoreName = "";
 var questionNumber = 0;
 var time = 75;
 var highScores = JSON.parse(localStorage.getItem("highScores")) || [];
+var interval;
 
 function answerCheck() {
     if ($(this).attr("answer-choice") === myQuestions[questionNumber].correctAnswer) {
@@ -72,9 +74,9 @@ function quiz() {
     }
 }
 
-function setScore(name){
+function setScore(){
     const score = {
-        name: name,
+        name: highScoreName,
         score: time
     };
     highScores.push(score);
@@ -90,9 +92,14 @@ function highScoreScreen(){
     clearInterval(interval);
     bodyText.empty();
     buttons.empty();
-    bodyText.html("<ul id='high-score-screen'></ul>")
-    highScores.forEach(element => bodyText.append("<li>"+localStorage.getItem('highScores')+"</li>")); 
-    
+    var storedHighScores = JSON.parse(localStorage.getItem("highScores"));
+    var ul = $("<ul>");
+    for (var i =0; i<storedHighScores.length; i++){
+        var li = $("<li>");
+        li.html(storedHighScores[i].name + ": " + storedHighScores[i].score);
+        ul.append(li);
+    }
+    bodyText.append(ul);
     
 }
 
@@ -102,9 +109,9 @@ function endGame(){
     bodyText.html("Game Over!<br />Final Score: " + time + "<br />Enter Intials to save high score<br />");
     bodyText.append("<input id='highscore-input' type='text' placeholder='Initials' maxlength=3 size=3>")
     bodyText.append("<input id='highscore-submit' type='submit'>");
-    var highScoreName = $("highscore-input").val();
     bodyText.on("click", "#highscore-submit", function(){
-        setScore(highScoreName)
+        highScoreName = $("#highscore-input").val();
+        setScore()
         highScoreScreen();
     });
 }
@@ -126,6 +133,7 @@ function timer() {
 }) */
 
 function init() {
+    highScoreLink.click(highScoreScreen);
     timerText.html("Time: " + time);
     headerText.html("Coding Quiz");
     bodyText.html("10 questions<br />Fastest time wins<br />-10 seconds per wrong answer<br />Press start to begin");
@@ -134,11 +142,9 @@ function init() {
         timer();
         quiz();
     });
+    
 }
+
 
 init();
 
-highScoreLink.on("click", function(){
-    
-    highScoreScreen();
-});
