@@ -15,35 +15,29 @@ body {
     padding-right: 20px;
 }
 
-#high-score{
-    text-decoration: none;
-    color:purple;
-}
-
-#timer{
+#timer {
     font-size: 30px;
 }
 
-#card-body{
+#card-body {
     margin-top: 10px;
     margin-bottom: 10px;
 }
 
-#button-container{
+#button-container {
     margin: 0 auto;
 }
 
-.button{
+button {
     border: none;
     background-color: rgb(95, 39, 226);
-    border-radius: 25px;
-    box-shadow: rgba(0, 0, 0, 0.1) 0px 1px 6px 0px rgba(0, 0, 0, 0.2) 0px 1px 1px 0px;
+    border-radius: 15px;
     color: hsl(0, 0%, 100%);
     display: inline-block;
     font-size: 22px;
     line-height: 22px;
     margin: 16px 16px 16px 20px;
-    padding: 14px 34px;
+    padding: 14px 18px;
     text-align: center;
     cursor: pointer;
     margin: 0 auto;
@@ -58,14 +52,23 @@ body {
     font-size: 18px;
     margin: 0 auto;
     max-width: 800px;
+    min-width: 400px;
     padding: 30px 40px;
-  }
+}
 
-  .quiz-button{
-    margin: 0 auto 10px 15px;
-    padding: 5px 15px;
-  }
+.quiz-button {
+    margin: 0 auto 10px 5px;
+    padding: 5px 5px;
+}
 
-  #highscore-input{
-      text-align: center;
-  }
+#high-score-link {
+    float: left;
+}
+
+#restart {
+    float: right;
+}
+
+header {
+    text-align: center;
+}
